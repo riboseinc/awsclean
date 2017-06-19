@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+# (c) 2017 Ribose Inc.
+#
+
+require "awsclean"
+
+Awsclean::Commands.start(ARGV)
