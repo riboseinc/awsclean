@@ -40,8 +40,7 @@ module Awsclean
 
         # List all image repositories
         #
-        # TODO: add pagination?
-        res    = ecr.describe_repositories(max_results: 100)
+        res    = ecr.describe_all_repositories
         images = res.repositories.flat_map do |repo|
           ecr.describe_images(repository_name: repo.repository_name)
             .image_details

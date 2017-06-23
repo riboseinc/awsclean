@@ -43,5 +43,24 @@ module Aws
         end
       end
     end
+
+    class Client
+
+      def describe_all_repositories
+        repositories = []
+        next_token   = nil
+
+        loop do
+          res = describe_repositories(next_token: next_token)
+          repositories << res.repositories
+          next_token    = res.next_token
+          break unless next_token
+        end
+
+        Types::DescribeRepositoriesResponse.new(
+          repositories: repositories.flatten
+        )
+      end
+    end
   end
 end
