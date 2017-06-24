@@ -1,5 +1,7 @@
 # Awsclean
 
+[![codecov.io](https://codecov.io/github/riboseinc/awsclean/coverage.svg?branch=master)](https://codecov.io/github/riboseinc/awsclean?branch=master)
+
 CLI to clean up AWS AMIs and ECR images.
 
 ## Installation
