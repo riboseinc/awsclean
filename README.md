@@ -1,5 +1,7 @@
 # Awsclean
 
+[![Build Status](https://travis-ci.org/riboseinc/awsclean.svg?branch=master)](https://travis-ci.org/riboseinc/awsclean)
+
 CLI to clean up AWS AMIs and ECR images.
 
 ## Installation
