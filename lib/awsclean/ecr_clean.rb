@@ -20,19 +20,6 @@ module Awsclean
         exit 1
       end
 
-      # List images used in active task definitions from all regions.
-      # This is a global operation so we run it once.
-      #
-      images_in_active_task_defs = supported_regions.flat_map do |region|
-        ecs = Aws::ECS::Client.new(region: region)
-        res = ecs.list_task_definitions(status: 'ACTIVE', max_results: 100)
-
-        res.task_definition_arns.flat_map do |td|
-          ecs.describe_task_definition(task_definition: td)
-            .task_definition.container_definitions.map(&:image)
-        end
-      end
-
       regions.each do |region|
         puts "[clean_ecr_images] Checking region: #{region}"
 
@@ -48,7 +35,7 @@ module Awsclean
 
         images.each do |image|
           image.region = region
-          image.in_use = !(images_in_active_task_defs & image.image_uris).empty?
+          image.in_use = !image.image_uris.empty?
           image.elegible_for_cleanup = (image.stale?(options[:e]) && !image.in_use)
         end
 

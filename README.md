@@ -34,7 +34,7 @@ Locates and deletes stale docker images stored in Amazon ECR.
 An ECR image is considered stale when:
 
 1. It was created over `--e` days ago (default: 60).
-2. It's not being used by any ECS active task definition.
+2. It was untagged.
 
 #### Listing images eligible for cleanup:
 
@@ -45,7 +45,7 @@ $ awsclean clean_ecr_images
 ```
 [clean_ecr_images] Checking region: us-east-2
 REGION          IN USE?     REPOSITORY URI                                            TAGS            IMAGE ID                CREATED                                   SIZE        ELEGIBLE FOR CLEANUP?
-us-east-2       true        3333344444.dkr.ecr.us-east-2.amazonaws.com/foobar         baz             sha256:464ea4713d51     2017-04-05T21:00:45+00:00 (100 days ago)  184.0 MB    false
+us-east-2       false       3333344444.dkr.ecr.us-east-2.amazonaws.com/foobar         (!TAG)          sha256:464ea4713d51     2017-04-05T21:00:45+00:00 (100 days ago)  184.0 MB    true
 us-east-2       true        3333344444.dkr.ecr.us-east-2.amazonaws.com/foobar         latest          sha256:464ea4713d51     2017-04-05T21:00:45+00:00 (100 days ago)  184.0 MB    false
 us-east-2       false       3333344444.dkr.ecr.us-east-2.amazonaws.com/foobar_v2      (!TAG)          sha256:f47d0c6acbe9     2017-06-22T22:55:44+00:00 (21 days ago)   136.0 MB    false
 us-east-2       false       3333344444.dkr.ecr.us-east-2.amazonaws.com/foobar_v2      latest          sha256:58e584fd7654     2017-06-23T16:13:22+00:00 (21 days ago)   15.0 MB     false
