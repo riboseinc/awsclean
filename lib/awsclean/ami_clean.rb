@@ -6,8 +6,8 @@ module Awsclean
 
     SERVICE_IDENTIFIER = "EC2"
 
-    IMAGE_LIST_HEADER = ['REGION', 'IN USE?', 'AMI ID', 'CREATED', 'ELEGIBLE FOR CLEANUP?']
-    IMAGE_LIST_FORMAT = '%-16s%-12s%-16s%-42s%-24s'
+    IMAGE_LIST_HEADER = ['REGION', 'IN USE?', 'NAME', 'AMI ID', 'CREATED', 'ELEGIBLE FOR CLEANUP?']
+    IMAGE_LIST_FORMAT = '%-10s%-10s%-24s%-24s%-42s%-6s'
 
     def self.run options
       regions = filter_regions(options[:r])
@@ -72,7 +72,7 @@ module Awsclean
       created << " (#{image.days_since_creation} days ago)"
 
       sprintf(IMAGE_LIST_FORMAT,
-              region, image.in_use, image.image_id,
+              region, image.in_use, image.name, image.image_id,
               created, image.elegible_for_cleanup)
     end
   end
