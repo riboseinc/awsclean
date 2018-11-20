@@ -31,6 +31,14 @@ module Awsclean
         instances   = res.reservations.flat_map(&:instances)
         amis_in_use = instances.map(&:image_id).uniq
 
+        # Allow user to define a list of locked AMIs
+        if !options[:a].empty?
+          options[:a].each do |ami|
+            puts "Locked AMI: #{ami}"
+            amis_in_use << ami
+          end
+        end
+
         # Get a list of all of AMI's owned by the account.
         #
         res = ec2.describe_images(owners: %w(self))

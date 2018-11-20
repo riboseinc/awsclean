@@ -71,11 +71,18 @@ The following flags are available to use in both commands:
 * `--c`: delete images marked as eligible for cleanup. (default: false)
 * `--e`: images older than `--e` days are considered old. (default: 60)
 * `--r`: select which AWS regions to perform on. (default: all)
+* `--a`: specify AMIs will not be deleted. (default: [])
 
 The `--r` flag accepts a space separated list of region names.
 
 ```
 $ awsclean clean_amis -r us-east-2 ca-central-1
+```
+
+The `--a` flag accepts a space separated list of AMI IDs.
+
+```
+$ awsclean clean_amis -a ami-xxxxxx ami-yyyyyy
 ```
 
 ## Development
